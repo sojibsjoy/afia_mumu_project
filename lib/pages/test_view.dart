@@ -80,7 +80,7 @@ class _TestViewState extends State<TestView> {
       case 1:
         return galleryView();
       case 2:
-        return Text("Review");
+        return Text("Review Design");
       default:
         return descriptionView();
     }
