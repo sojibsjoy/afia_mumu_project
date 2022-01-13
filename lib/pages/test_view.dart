@@ -1,163 +1,199 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sample_app8/controller/service_controller.dart';
+import 'package:sample_app8/designs/recipe_design.dart';
 
 class TestView extends StatefulWidget {
-  const TestView({Key? key}) : super(key: key);
+  const TestView({Key key}) : super(key: key);
 
   @override
   _TestViewState createState() => _TestViewState();
 }
 
 class _TestViewState extends State<TestView> {
+  final RecipeController recipeController = Get.put(RecipeController());
   int viewID = 0; // 0 means Description
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: GestureDetector(
-          onHorizontalDragEnd: (details) {
-            setState(() {
-              if (viewID == 0) {
-                viewID = 1;
-              } else if (viewID == 1) {
-                viewID = 2;
-              } else {
-                viewID = 1;
-              }
-            });
-          },
+        child: SingleChildScrollView(
           child: Center(
-            child: getBodyView(),
+            child: Column(
+              children: [
+                SizedBox(height: 40),
+                Text(
+                  "List of all the available recipes",
+                ),
+                Obx(() {
+                  if (recipeController.isLoading.value) {
+                    return CircularProgressIndicator();
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          primary: false,
+                          itemCount: recipeController.obj.feed.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return REcipeOnlineCon(
+                              imgPath: recipeController
+                                  .obj.feed[index].display.images.first,
+                              isFavorite: false,
+                              recipeTitle: recipeController
+                                  .obj.feed[index].display.displayName,
+                              recipeSubTitle:
+                                  "Steps: ${recipeController.obj.feed[index].content.preparationStepCount}",
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  }
+                })
+              ],
+            ),
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        width: double.infinity,
-        height: 50,
-        color: Colors.amber,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextButton(
-              onPressed: () => setState(() => viewID = 0),
-              child: const Text(
-                "Description",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () => setState(() => viewID = 1),
-              child: const Text(
-                "Gallery",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () => setState(() => viewID = 2),
-              child: const Text(
-                "Review",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
+}
 
-  Widget getBodyView() {
-    switch (viewID) {
-      case 0:
-        return descriptionView();
-      case 1:
-        return galleryView();
-      case 2:
-        return Text("Review Design");
-      default:
-        return descriptionView();
-    }
+class REcipeOnlineCon extends StatefulWidget {
+  final String imgPath;
+  final String recipeTitle;
+  final String recipeSubTitle;
+  final bool isFavorite;
+  const REcipeOnlineCon({
+    Key key,
+    this.imgPath,
+    this.recipeTitle,
+    this.recipeSubTitle,
+    this.isFavorite,
+  }) : super(key: key);
+
+  @override
+  State<REcipeOnlineCon> createState() => _REcipeOnlineConState();
+}
+
+class _REcipeOnlineConState extends State<REcipeOnlineCon> {
+  bool favoriteFlag;
+
+  @override
+  void initState() {
+    favoriteFlag = widget.isFavorite;
+    super.initState();
   }
 
-  Widget descriptionView() {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-              child: Image.asset(
-                'assets/recipe_img/applep/applep1.jpg',
-                height: 250,
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8.0),
+      height: 270.0,
+      width: 335.0,
+      decoration: const BoxDecoration(
+        color: Colors.teal,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+      child: Column(
+        children: [
+          Stack(
+            alignment: Alignment.bottomRight,
+            children: [
+              SizedBox(
+                height: 200.0,
                 width: double.infinity,
-                fit: BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                  child: Image.network(
+                    widget.imgPath,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
+              favoriteFlag
+                  ? GestureDetector(
+                      onTap: () => setState(() => favoriteFlag = false),
+                      child: Container(
+                        margin: const EdgeInsets.all(8.0),
+                        child: const CircleAvatar(
+                          backgroundColor: Colors.red,
+                          radius: 25.0,
+                          child: Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                            size: 30.0,
+                          ),
+                        ),
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () => setState(() => favoriteFlag = true),
+                      child: Container(
+                        margin: const EdgeInsets.all(8.0),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.grey.withOpacity(0.7),
+                          radius: 25.0,
+                          child: const Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                            size: 30.0,
+                          ),
+                        ),
+                      ),
+                    ),
+            ],
+          ),
+          SizedBox(
+            width: 380,
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 10.0,
+                ),
+                SizedBox(
+                  height: 55,
+                  child: Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.recipeTitle,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontFamily: 'IndieFlower',
+                          ),
+                        ),
+                        Text(
+                          widget.recipeSubTitle,
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.add,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            const Text(
-              "Apple Pie",
-              style: TextStyle(
-                color: Colors.green,
-                fontSize: 25,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 6),
-            const Text("Co and Co Workers"),
-            const SizedBox(height: 10),
-            // FutureBuilder(
-            //   future: _getDescription(),
-            //   builder: (context, snapshot) {
-            //     if (!snapshot.hasData) {
-            //       return const SizedBox(
-            //         height: 180.0,
-            //         child: Center(
-            //           child: CircularProgressIndicator(),
-            //         ),
-            //       );
-            //     } else {
-            //       return Text(snapshot.data.toString());
-            //     }
-            //   },
-            // ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget galleryView() {
-    return Expanded(
-      child: Container(
-        height: 200,
-        width: 200,
-        color: Colors.grey,
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return Container(
-              margin: const EdgeInsets.all(5),
-              height: 50,
-              width: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.amberAccent,
-              ),
-              child: Center(child: Text("$index Rifat")),
-            );
-          },
-          itemCount: 20,
-        ),
+          ),
+        ],
       ),
     );
   }

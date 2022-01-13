@@ -1,7 +1,7 @@
 import 'package:sample_app8/models/recipe_model.dart';
 
 List<Recipe> recipeList = <Recipe>[
-  const Recipe(
+  Recipe(
     isFavorite: false,
     //recipeNo: 1,
     //recipeTag: 'Recipe1',
@@ -10,7 +10,7 @@ List<Recipe> recipeList = <Recipe>[
     subTitle: 'Co & Cookers',
     description: "Recipe 1 description.",
   ),
-  const Recipe(
+  Recipe(
     isFavorite: true,
     //recipeNo: 2,
     //recipeTag: 'Recipe2',
@@ -19,7 +19,7 @@ List<Recipe> recipeList = <Recipe>[
     subTitle: 'Co & Cookers',
     description: "Recipe 1 description.",
   ),
-  const Recipe(
+  Recipe(
     isFavorite: false,
     //recipeNo: 3,
     //recipeTag: 'Recipe3',
@@ -28,7 +28,7 @@ List<Recipe> recipeList = <Recipe>[
     subTitle: 'Co & Cookers',
     description: "Recipe 1 description.",
   ),
-  const Recipe(
+  Recipe(
     isFavorite: true,
     // recipeNo: 4,
     // recipeTag: 'Recipe4',
@@ -37,7 +37,7 @@ List<Recipe> recipeList = <Recipe>[
     subTitle: 'Co & Cookers',
     description: "Recipe 1 description.",
   ),
-  const Recipe(
+  Recipe(
     isFavorite: false,
     //recipeNo: 5,
     //recipeTag: 'Recipe5',
@@ -46,7 +46,7 @@ List<Recipe> recipeList = <Recipe>[
     subTitle: 'Co & Cookers',
     description: "Recipe 1 description.",
   ),
-  const Recipe(
+  Recipe(
     isFavorite: false,
     //  recipeNo: 6,
     //recipeTag: 'Recipe6',
@@ -55,7 +55,7 @@ List<Recipe> recipeList = <Recipe>[
     subTitle: 'Co & Cookers',
     description: "Recipe 1 description.",
   ),
-  const Recipe(
+  Recipe(
     isFavorite: false,
     // recipeNo: 7,
     // recipeTag: 'Recipe7',
@@ -64,7 +64,7 @@ List<Recipe> recipeList = <Recipe>[
     subTitle: 'Co & Cookers',
     description: "Recipe 1 description.",
   ),
-  const Recipe(
+  Recipe(
     isFavorite: false,
     //recipeNo: 8,
     //recipeTag: 'Recipe8',
@@ -73,7 +73,7 @@ List<Recipe> recipeList = <Recipe>[
     subTitle: 'Co & Cookers',
     description: "Recipe 1 description.",
   ),
-  const Recipe(
+  Recipe(
     isFavorite: true,
     //recipeNo: 9,
     //recipeTag: 'Recipe9',
@@ -82,7 +82,7 @@ List<Recipe> recipeList = <Recipe>[
     subTitle: 'Co & Cookers',
     description: "Recipe 1 description.",
   ),
-  const Recipe(
+  Recipe(
     isFavorite: false,
     //recipeNo: 10,
     //recipeTag: 'Recipe10',
@@ -91,7 +91,7 @@ List<Recipe> recipeList = <Recipe>[
     subTitle: 'Co & Cookers',
     description: "Recipe 1 description.",
   ),
-  const Recipe(
+  Recipe(
     isFavorite: true,
     //recipeNo: 11,
     //recipeTag: 'Recipe11',
@@ -219,7 +219,7 @@ List<Recipe> recipeList = <Recipe>[
   //     recipeImgPath: 'assets/recipe_img/masalatea/tea.jpg',
   //     recipeName: 'Masala Tea',
   //     recipeSubTitle: 'Co & Cookers'),
-  const Recipe(
+  Recipe(
     isFavorite: false,
     //recipeNo: 29,
     //recipeTag: 'Recipe29',

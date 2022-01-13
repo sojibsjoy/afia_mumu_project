@@ -8,7 +8,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
         ViewRecipe.routeName: (context) => ViewRecipe(),
         GalleryScreen.routeName: (context) => GalleryScreen(),
       },
-      initialRoute: HomeScreen.routeName,      
+      initialRoute: HomeScreen.routeName,
     );
   }
 }

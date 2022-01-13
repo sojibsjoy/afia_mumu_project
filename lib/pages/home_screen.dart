@@ -8,7 +8,7 @@ import 'package:sample_app8/pages/view_recipe.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/';
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

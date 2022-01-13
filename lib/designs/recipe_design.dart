@@ -6,11 +6,11 @@ class RecipeCon extends StatefulWidget {
   final String recipeSubTitle;
   final bool isFavorite;
   const RecipeCon({
-    Key? key,
-    required this.imgPath,
-    required this.recipeTitle,
-    required this.recipeSubTitle,
-    required this.isFavorite,
+    Key key,
+    this.imgPath,
+    this.recipeTitle,
+    this.recipeSubTitle,
+    this.isFavorite,
   }) : super(key: key);
 
   @override
@@ -18,6 +18,14 @@ class RecipeCon extends StatefulWidget {
 }
 
 class _RecipeConState extends State<RecipeCon> {
+  bool favoriteFlag;
+
+  @override
+  void initState() {
+    favoriteFlag = widget.isFavorite;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,9 +57,9 @@ class _RecipeConState extends State<RecipeCon> {
                   ),
                 ),
               ),
-              widget.isFavorite
+              favoriteFlag
                   ? GestureDetector(
-                      onTap: () {},
+                      onTap: () => setState(() => favoriteFlag = false),
                       child: Container(
                         margin: const EdgeInsets.all(8.0),
                         child: const CircleAvatar(
@@ -66,7 +74,7 @@ class _RecipeConState extends State<RecipeCon> {
                       ),
                     )
                   : GestureDetector(
-                      onTap: () {},
+                      onTap: () => setState(() => favoriteFlag = true),
                       child: Container(
                         margin: const EdgeInsets.all(8.0),
                         child: CircleAvatar(

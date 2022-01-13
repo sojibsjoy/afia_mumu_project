@@ -8,18 +8,18 @@ class GalleryScreen extends StatefulWidget {
   static const routeName = '/gallery';
   //final int recipeNo;
 
-  GalleryScreen({Key? key}) : super(key: key);
+  GalleryScreen({Key key}) : super(key: key);
 
   @override
   State<GalleryScreen> createState() => _GalleryScreenState();
 }
 
 class _GalleryScreenState extends State<GalleryScreen> {
-  int? recipeNo;
+  int recipeNo;
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments;
+    final args = ModalRoute.of(context).settings.arguments;
     Recipe viewRecipeOb = recipeList[args as int];
     Future<String> _getDescription() async {
       return await rootBundle.loadString('assets/recipes/pizza.txt');

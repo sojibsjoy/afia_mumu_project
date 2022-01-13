@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sample_app8/pages/profile_screen.dart';
 import 'package:sample_app8/pages/reg_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -70,6 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () {
                 print(emailC.text);
                 print(passwordC.text);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
               },
               icon: const Icon(Icons.send),
               label: const Text(

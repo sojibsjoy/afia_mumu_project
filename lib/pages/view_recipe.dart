@@ -8,7 +8,7 @@ import 'package:sample_app8/pages/gallery_screen.dart';
 
 class ViewRecipe extends StatefulWidget {
   static const routeName = '/view_recipe';
-  ViewRecipe({Key? key}) : super(key: key);
+  ViewRecipe({Key key}) : super(key: key);
 
   @override
   State<ViewRecipe> createState() => _ViewRecipeState();
@@ -16,7 +16,7 @@ class ViewRecipe extends StatefulWidget {
 
 class _ViewRecipeState extends State<ViewRecipe> {
   Future<String> _getDescription() async {
-    final args = ModalRoute.of(context)!.settings.arguments;
+    final args = ModalRoute.of(context).settings.arguments;
     //return await rootBundle.loadString('assets/recipes/pizza.txt');
     if (args == 0) {
       return await rootBundle.loadString('assets/recipes/kacchi_b.txt');
@@ -57,11 +57,11 @@ class _ViewRecipeState extends State<ViewRecipe> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments;
-    Recipe? viewRecipeOb;
+    final args = ModalRoute.of(context).settings.arguments;
+    Recipe viewRecipeOb;
     if (args != null) {
       viewRecipeOb = recipeList[args as int];
-    }   
+    }
     return args == null
         ? Scaffold(
             appBar: AppBar(
@@ -73,7 +73,7 @@ class _ViewRecipeState extends State<ViewRecipe> {
           )
         : Scaffold(
             appBar: AppBar(
-              title: Text(viewRecipeOb!.title),
+              title: Text(viewRecipeOb.title),
             ),
             body: SingleChildScrollView(
               child: Padding(
